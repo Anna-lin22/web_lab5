@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV – Anna Mosiichuk (JavaScript)</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        body.dark {
+            background-color: #111;
+            color: #ddd;
+        }
+        header table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        header td:first-child {
+            text-align: left;
+            vertical-align: middle;
+        }
+        header td:last-child {
+            text-align: right;
+            vertical-align: middle;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+            color: #2c3e50;
+        }
+        body.dark header h1 {
+            color: #eab308;
+        }
+        header p {
+            margin: 5px 0 0;
+            font-size: 1.2em;
+            color: #7f8c8d;
+        }
+        body.dark header p {
+            color: #ef4444;
+        }
+        header img {
+            border: 3px solid orange;
+            width: 150px;
+        }
+        hr {
+            border: 0;
+            height: 1px;
+            background: linear-gradient(to right, transparent, orange, transparent);
+            margin: 30px 0;
+        }
+        section {
+            margin-bottom: 30px;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        body.dark section {
+            background: #1a1a1a;
+            border: 1px solid #b91c1c;
+        }
+        h2 {
+            color: #2c3e50;
+            border-bottom: 2px solid orange;
+            padding-bottom: 5px;
+            margin-top: 0;
+        }
+        body.dark h2 {
+            color: #ef4444;
+            border-bottom-color: #eab308;
+        }
+        a {
+            color: orange;
+            text-decoration: none;
+        }
+        body.dark a {
+            color: #eab308;
+        }
+        article {
+            background: #f7eee3;
+            padding: 15px;
+            border-radius: 5px;
+            border-left: 4px solid orange;
+        }
+        body.dark article {
+            background: #2a2a2a;
+            border-left-color: #eab308;
+        }
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            padding: 15px;
+            color: #cfbd8a;
+            border-top: 1px solid #ddd;
+        }
+        body.dark footer {
+            border-top-color: #b91c1c;
+            color: #eab308;
+        }
+        @media (max-width: 600px) {
+            header table, header tr, header td {
+                display: block;
+                text-align: center;
+            }
+            header td:last-child {
+                text-align: center;
+                margin-top: 15px;
+            }
+            header img {
+                width: 120px;
+            }
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        .modal.open {
+            display: flex;
+        }
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            max-width: 500px;
+            width: 90%;
+            position: relative;
+        }
+        body.dark .modal-content {
+            background: #1a1a1a;
+            border: 1px solid #b91c1c;
+            color: #ddd;
+        }
+        .close-modal {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 24px;
+            cursor: pointer;
+        }
+        .modal-content input,
+        .modal-content textarea {
+            width: 100%;
+            padding: 8px;
+            margin: 8px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background: white;
+            color: #333;
+        }
+        body.dark .modal-content input,
+        body.dark .modal-content textarea {
+            background: #333;
+            border-color: #b91c1c;
+            color: #eee;
+        }
+        button {
+            background: orange;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: darkorange;
+        }
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: orange;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            font-size: 20px;
+            cursor: pointer;
+            z-index: 1001;
+        }
+        .review-card {
+            background: #f9f9f9;
+            padding: 10px;
+            margin: 10px 0;
+            border-left: 4px solid orange;
+        }
+        body.dark .review-card {
+            background: #2a2a2a;
+            border-left-color: #eab308;
+        }
+    </style>
+</head>
+<body>
+    <button class="theme-toggle" id="themeToggle">🌙</button>
+
+    <header>
+        <table>
+            <tr>
+                <td>
+                    <h1>Anna Mosiichuk</h1>
+                    <p>Cybersecurity Student</p>
+                </td>
+                <td>
+                    <img src="mackey.jpg" alt="Profile photo" width="150">
+                </td>
+            </tr>
+        </table>
+    </header>
+    <hr>
+
+    <main>
+        <section>
+            <h2>Contact info</h2>
+            <address>
+                <ul>
+                    <li>Phone: <a href="tel:+380501234567">+38 (050) 123-45-67</a></li>
+                    <li>Email: <a href="mailto:anna.mosiichuk.kb.2023@lpnu.ua">anna.mosiichuk.kb.2023@lpnu.ua</a></li>
+                </ul>
+            </address>
+        </section>
+
+        <section>
+            <h2>About me</h2>
+            <p>I am a third-year Cybersecurity student with a strong interest in network security, Linux systems, and threat analysis.</p>
+            <p>I am eager to apply my theoretical knowledge in practical environments and continuously improve my technical skills. I am responsible, detail-oriented, and a quick learner.</p>
+        </section>
+
+        <section>
+            <h2>Education</h2>
+            <article>
+                <h3>Lviv Polytechnic National University</h3>
+                <p>Bachelor of Cybersecurity, <time datetime="2023">2023</time> – present</p>
+            </article>
+        </section>
+
+        <section>
+            <h2>Soft Skills</h2>
+            <ul>
+                <li>Time management</li>
+                <li>Critical thinking</li>
+                <li>Emotional intelligence</li>
+                <li>Stress resistance</li>
+                <li>Empathy</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Hard Skills</h2>
+            <ul>
+                <li>Linux</li>
+                <li>Networking</li>
+                <li>Information analysis</li>
+                <li>Databases (SQL fundamentals)</li>
+                <li>Python (basic level)</li>
+                <li>English B1 (tech documentation reading)</li>
+            </ul>
+        </section>
+
+        <section id="reviews">
+            <h2>Comments from employers</h2>
+            <div id="commentsContainer">Loading...</div>
+        </section>
+    </main>
+
+    <footer>
+        <p>© 2026 Anna Mosiichuk</p>
+        <p id="browserInfo"></p>
+    </footer>
+
+    <div id="contactModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Feedback</h2>
+            <form id="feedbackForm" action="https://formspree.io/f/xvzwgorb" method="POST">
+                <input type="text" name="name" placeholder="Name" required>
+                <input type="email" name="email" placeholder="Email" required>
+                <input type="tel" name="phone" placeholder="Phone">
+                <textarea name="message" placeholder="Message" rows="4" required></textarea>
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const userAgent = navigator.userAgent;
+        localStorage.setItem('browserInfo', userAgent);
+        document.getElementById('browserInfo').textContent = localStorage.getItem('browserInfo');
+
+        const variant = 17;
+        fetch(`https://jsonplaceholder.typicode.com/posts/${variant}/comments`)
+            .then(res => res.json())
+            .then(comments => {
+                const container = document.getElementById('commentsContainer');
+                if (comments.length === 0) {
+                    container.innerHTML = '<p>Немає коментарів.</p>';
+                    return;
+                }
+                container.innerHTML = comments.map(c => `
+                    <div class="review-card">
+                        <strong>${c.name}</strong><br>
+                        <small>${c.email}</small><br>
+                        <p>${c.body}</p>
+                    </div>
+                `).join('');
+            })
+            .catch(err => {
+                document.getElementById('commentsContainer').innerHTML = '<p>Помилка завантаження коментарів.</p>';
+                console.error(err);
+            });
+
+        let modalShown = false;
+        setTimeout(() => {
+            if (!modalShown) {
+                document.getElementById('contactModal').classList.add('open');
+                modalShown = true;
+            }
+        }, 60000);
+
+        document.querySelector('.close-modal').addEventListener('click', () => {
+            document.getElementById('contactModal').classList.remove('open');
+        });
+        window.addEventListener('click', (e) => {
+            const modal = document.getElementById('contactModal');
+            if (e.target === modal) {
+                modal.classList.remove('open');
+            }
+        });
+
+        const body = document.body;
+        const themeToggle = document.getElementById('themeToggle');
+
+        function setTheme(theme) {
+            if (theme === 'dark') {
+                body.classList.add('dark');
+                themeToggle.textContent = '☀️';
+                localStorage.setItem('theme', 'dark');
+            } else {
+                body.classList.remove('dark');
+                themeToggle.textContent = '🌙';
+                localStorage.setItem('theme', 'light');
+            }
+        }
+
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            setTheme(savedTheme);
+        } else {
+            const hour = new Date().getHours();
+            if (hour >= 7 && hour < 21) {
+                setTheme('light');
+            } else {
+                setTheme('dark');
+            }
+        }
+
+        themeToggle.addEventListener('click', () => {
+            if (body.classList.contains('dark')) {
+                setTheme('light');
+            } else {
+                setTheme('dark');
+            }
+        });
+    </script>
+</body>
+</html>
